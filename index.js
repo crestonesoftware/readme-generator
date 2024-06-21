@@ -64,18 +64,21 @@ function addTitleToREADME(title) {
     addLineToReadMe(TEXT_STYLES.TITLE + title);
 }
 
+function addSectionHeadingToTOC(heading) {
+    tableOfContents.push(`- [${heading}](#${heading})\n`);
+}
+
 // Adds the project title to the README contents
 function addSectionToREADME(sectionHeading, sectionContents) {
     // prepend "## " to format the heading
     addLineToReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading);
-    tableOfContents.push(sectionHeading);
+    addSectionHeadingToTOC(sectionHeading);
     addBodyTextToREADME(sectionContents);
 }
 
 function generateTOC() {
-    const generatedTOC = tableOfContents.join("<br>");
+    const generatedTOC = tableOfContents.join("");
     
-    console.log(generatedTOC);
     addSectionToREADME(SECTION_HEADINGS.TOC, generatedTOC);    
 }
 
