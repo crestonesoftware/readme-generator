@@ -12,10 +12,12 @@ const TEXT_STYLES = {
 
 const SECTION_HEADINGS = {
     DESC: "Description",
-    INSTALLATION: "Installation Instructions",
+    INSTALLATION: "Installation",
     USAGE: "Usage",
     TOC: "Table of Contents"
 }
+
+const tableOfContents = [];
 
 let projectTitle;
 let readmeContents = "";
@@ -65,12 +67,17 @@ function addTitleToREADME(title) {
 // Adds the project title to the README contents
 function addSectionToREADME(sectionHeading, sectionContents) {
     // prepend "## " to format the heading
-    addLineToReadMe(TEXT_STYLES.SECTION_HEADING + sectionHeading);
+    addLineToReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading);
+    tableOfContents.push(sectionHeading);
     addBodyTextToREADME(sectionContents);
 }
 
-
-
+function generateTOC() {
+    const generatedTOC = tableOfContents.join("<br>");
+    
+    console.log(generatedTOC);
+    addSectionToREADME(SECTION_HEADINGS.TOC, generatedTOC);    
+}
 
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
@@ -81,9 +88,12 @@ async function promptUserForProjectDetails() {
     projectTitle = answers.projectTitle;
     console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
     addTitleToREADME(answers.projectTitle);
-    addSectionToREADME(SECTION_HEADINGS.TOC,`This is the table of contents`);
+//    addLineToReadMe("- [Installation](#Installation)");
+//    addLineToReadMe("- [Usage](#Usage)");
+    //addSectionToREADME(SECTION_HEADINGS.TOC,`This is the table of contents`);
     addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
     addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
+    generateTOC();
 }
 
 
