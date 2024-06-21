@@ -26,6 +26,14 @@ const TEXT_STYLES = {
     TITLE: "# ",
     SECTION_HEADING: "## ",
 }
+
+const SECTION_HEADINGS = {
+    DESC: "Description",
+    INSTALLATION: "Installation Instructions",
+    USAGE: "Usage",
+    TOC: "Table of Contents"
+}
+
 let projectTitle;
 let readmeContents = "";
 
@@ -91,8 +99,9 @@ async function promptUserForProjectDetails() {
         projectTitle = answers.projectTitle;
         console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
         addTitleToREADME(answers.projectTitle);
-        addSectionToREADME("Description",`This is the description for lucky project ${answers.projectDescription}`);
-        addSectionToREADME("Installation Instructions",`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
+        addSectionToREADME(SECTION_HEADINGS.TOC,`This is the table of contents`);
+        addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
+        addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
         
     })
 }
