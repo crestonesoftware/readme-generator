@@ -2,25 +2,8 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+const questions = require("./assets/js/inquirer-questions.js");
 // DATA
-// TODO: Create an array of questions for user input
-const questions = [
-    {
-        type: "input",
-        name: "projectTitle",
-        message: "What is the name of your project?"
-    },
-    {
-        type: "input",
-        name: "projectDescription",
-        message: "Describe your project"
-    },
-    {
-        type: "input",
-        name: "installationInstructions",
-        message: "How can users install your product?"
-    }
-];
 
 const TEXT_STYLES = {
     TITLE: "# ",
@@ -93,18 +76,16 @@ function addSectionToREADME(sectionHeading, sectionContents) {
 // awaits the user's responses before completing execution and returns a promise
 // when calling, be sure to use promptUserForProjectDetails().then() for next steps
 async function promptUserForProjectDetails() {
-    await inquirer.
-        prompt(questions)
-    .then((answers) => {
-        projectTitle = answers.projectTitle;
-        console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
-        addTitleToREADME(answers.projectTitle);
-        addSectionToREADME(SECTION_HEADINGS.TOC,`This is the table of contents`);
-        addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
-        addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
-        
-    })
+    const answers = await inquirer.prompt(questions);
+
+    projectTitle = answers.projectTitle;
+    console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
+    addTitleToREADME(answers.projectTitle);
+    addSectionToREADME(SECTION_HEADINGS.TOC,`This is the table of contents`);
+    addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
+    addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
 }
+
 
 // INIT
 function init() {
