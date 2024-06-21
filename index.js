@@ -12,6 +12,10 @@ const questions = [
     }
 ];
 
+const TEXT_STYLES = {
+    TITLE: "# ",
+    SECTION_HEADING: "## ",
+}
 let projectTitle;
 let readmeContents = "";
 
@@ -49,22 +53,32 @@ async function promptUserForProjectDetails() {
     })
 }
 
-// Adds the project title to the README contents
-function addTitleToREADME(title) {
-    // prepend "# " to format the title
-    addLineToReadMe(`# ${title}`);
-}
-
-// adds a bit of humble, plain text to the README contents
-function addBodyTextToREADME(textToAdd) {
-    addLineToReadMe(textToAdd);
-}
-
 // adds a string, followed by a newline, to the contents of the generated readme
+// meant to be called by other functions with specific needs, e.g. to add a Title,
+// create a function that calls this function and pass a string to which you have prepended "# "
 function addLineToReadMe(stringToAdd) {
     readmeContents += stringToAdd;
     readmeContents +='\n';
 };
+
+// adds a bit of humble, plain text to the README contents
+// this function exists for completeness/readability only, and may be removed
+function addBodyTextToREADME(textToAdd) {
+    addLineToReadMe(textToAdd);
+}
+
+// Adds the project title to the README contents
+function addTitleToREADME(title) {
+    // prepend "# " to format the title
+    addLineToReadMe(TEXT_STYLES.TITLE + title);
+}
+
+// Adds the project title to the README contents
+function addSectionToREADME(sectionHeading, sectionContents) {
+    // prepend "## " to format the heading
+    addLineToReadMe(TEXT_STYLES.SECTION_HEADING + sectionHeading);
+    addBodyTextToREADME(sectionContents);
+}
 
 // INIT
 function init() {
@@ -73,7 +87,7 @@ function init() {
     promptUserForProjectDetails().then(()=> {
         console.log(`in the .then(): ${projectTitle}. This one should be second`);
         addTitleToREADME(projectTitle);
-        addBodyTextToREADME(`This is a readme for lucky project ${projectTitle}`);
+        addSectionToREADME("Description",`This is the description for lucky project ${projectTitle}`);
         console.log(readmeContents);
         writeToFile("README.md", readmeContents);
     });
