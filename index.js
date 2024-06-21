@@ -14,6 +14,11 @@ const questions = [
         type: "input",
         name: "projectDescription",
         message: "Describe your project"
+    },
+    {
+        type: "input",
+        name: "installationInstructions",
+        message: "How can users install your product?"
     }
 ];
 
@@ -73,6 +78,9 @@ function addSectionToREADME(sectionHeading, sectionContents) {
     addBodyTextToREADME(sectionContents);
 }
 
+
+
+
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
 // when calling, be sure to use promptUserForProjectDetails().then() for next steps
@@ -84,6 +92,8 @@ async function promptUserForProjectDetails() {
         console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
         addTitleToREADME(answers.projectTitle);
         addSectionToREADME("Description",`This is the description for lucky project ${answers.projectDescription}`);
+        addSectionToREADME("Installation Instructions",`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
+        
     })
 }
 
