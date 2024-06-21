@@ -1,9 +1,16 @@
 // DEPENDENCIES
 const fs = require('fs');
+const inquirer = require('inquirer');
 
 // DATA
 // TODO: Create an array of questions for user input
-const questions = [];
+const questions = [
+    {
+        type: "input",
+        name: "projectTitle",
+        message: "What is the name of your project?"
+    }
+];
 
 // FUNCTIONS
 
@@ -27,8 +34,17 @@ function writeToFile(fileName, data) {
     });
 }
 
+function promptUserForProjectDetails() {
+    inquirer.
+        prompt(questions)
+    .then((answers) => {
+        console.log(answers.projectTitle);
+    })
+}
+
 // INIT
 function init() {
+    promptUserForProjectDetails();
     writeToFile("README.md", "This is a readme file");
 }
 
