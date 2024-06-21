@@ -6,18 +6,24 @@ const fs = require('fs');
 const questions = [];
 
 // FUNCTIONS
+
+// writeToFile()
+// Writes a text file in ./output
+// fileName: name of file, e.g. ./output/fileName
+// data: contents to write to the file
 function writeToFile(fileName, data) {
-    console.log("writeToFile");
     const outputDirPath = "./output";
+    // if ./output does not exist, create it
     if (!fs.existsSync(outputDirPath)) {
         fs.mkdir("./output",(error) => {
             if(error)
-                console.log(error);
+                console.log("Error while creating directory ./output", error);
         });
     }
-    fs.writeFile("./output/${fileName}",data,(error) => {
+    // no need to check whether the file exists b/c fs.writeFile() will overwrite the contents
+    fs.writeFile(`./output/${fileName}`,data,(error) => {
         if(error)
-            console.log(error);
+            console.log(`Error while writing to file ./output/${fileName}`, error);
     });
 }
 
