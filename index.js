@@ -1,13 +1,30 @@
-// TODO: Include packages needed for this application
+// DEPENDENCIES
 const fs = require('fs');
+
+// DATA
 // TODO: Create an array of questions for user input
 const questions = [];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// FUNCTIONS
+function writeToFile(fileName, data) {
+    console.log("writeToFile");
+    const outputDirPath = "./output";
+    if (!fs.existsSync(outputDirPath)) {
+        fs.mkdir("./output",(error) => {
+            if(error)
+                console.log(error);
+        });
+    }
+    fs.writeFile("./output/${fileName}",data,(error) => {
+        if(error)
+            console.log(error);
+    });
+}
 
-// TODO: Create a function to initialize app
-function init() {}
+// INIT
+function init() {
+    writeToFile("README.md", "This is a readme file");
+}
 
 // Function call to initialize app
 init();
