@@ -12,6 +12,9 @@ const questions = [
     }
 ];
 
+let projectTitle;
+let readmeContents = "";
+
 // FUNCTIONS
 
 // writeToFile()
@@ -34,18 +37,46 @@ function writeToFile(fileName, data) {
     });
 }
 
-function promptUserForProjectDetails() {
-    inquirer.
+// prompts user to enter information about the project
+// awaits the user's responses before completing execution and returns a promise
+// when calling, be sure to use promptUserForProjectDetails().then() for next steps
+async function promptUserForProjectDetails() {
+    await inquirer.
         prompt(questions)
     .then((answers) => {
-        console.log(answers.projectTitle);
+        projectTitle = answers.projectTitle;
+        console.log(`in promptUserForProjectDetails(): ${projectTitle}. This one should be first.`);
     })
 }
 
+// Adds the project title to the README contents
+function addTitleToREADME(title) {
+    // prepend "# " to format the title
+    addLineToReadMe(`# ${title}`);
+}
+
+// adds a bit of humble, plain text to the README contents
+function addBodyTextToREADME(textToAdd) {
+    addLineToReadMe(textToAdd);
+}
+
+// adds a string, followed by a newline, to the contents of the generated readme
+function addLineToReadMe(stringToAdd) {
+    readmeContents += stringToAdd;
+    readmeContents +='\n';
+};
+
 // INIT
 function init() {
-    promptUserForProjectDetails();
-    writeToFile("README.md", "This is a readme file");
+    // using .then() directs execution to wait until the promise frompromptUserForProjectDetails()
+    // is resolved before continuing
+    promptUserForProjectDetails().then(()=> {
+        console.log(`in the .then(): ${projectTitle}. This one should be second`);
+        addTitleToREADME(projectTitle);
+        addBodyTextToREADME(`This is a readme for lucky project ${projectTitle}`);
+        console.log(readmeContents);
+        writeToFile("README.md", readmeContents);
+    });
 }
 
 // Function call to initialize app
