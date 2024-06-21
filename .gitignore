@@ -1,3 +1,6 @@
+#output (directory and the generated README files)
+output/
+
 # Logs
 logs
 *.log
