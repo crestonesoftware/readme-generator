@@ -132,8 +132,7 @@ async function promptUserForProjectDetails() {
     //addTitleToREADME(answers.projectTitle);
     readmeContents += composeTitleForREADME(answers.projectTitle);
     readmeContents += composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription);
-    //addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
-    addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
+    readmeContents += composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions);
     generateTOC();
 }
 
