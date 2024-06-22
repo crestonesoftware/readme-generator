@@ -52,16 +52,31 @@ function addLineToReadMe(stringToAdd) {
     readmeContents +='\n';
 };
 
-// adds a bit of humble, plain text to the README contents
-// this function exists for completeness/readability only, and may be removed
-function addBodyTextToREADME(textToAdd) {
-    addLineToReadMe(textToAdd);
-}
+//COMPOSE
+function composeLineForReadMe(stringToAdd) {
+    return stringToAdd + '\n';
+};
 
 // Adds the project title to the README contents
 function addTitleToREADME(title) {
     // prepend "# " to format the title
     addLineToReadMe(TEXT_STYLES.TITLE + title);
+}
+
+//COMPOSE
+function composeTitleForREADME(title) {
+    // prepend "# " to format the title
+    return composeLineForReadMe(TEXT_STYLES.TITLE + title);
+}
+
+
+
+
+
+// adds a bit of humble, plain text to the README contents
+// this function exists for completeness/readability only, and may be removed
+function addBodyTextToREADME(textToAdd) {
+    addLineToReadMe(textToAdd);
 }
 
 function addSectionHeadingToTOC(heading) {
@@ -73,8 +88,10 @@ function addSectionHeadingToTOC(heading) {
 function addSectionToREADME(sectionHeading, sectionContents) {
     // prepend "## " to format the heading
     addLineToReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading);
-    addSectionHeadingToTOC(sectionHeading);
+    
     addBodyTextToREADME(sectionContents);
+
+    addSectionHeadingToTOC(sectionHeading);
 }
 
 function generateTOC() {
@@ -91,7 +108,11 @@ async function promptUserForProjectDetails() {
 
     projectTitle = answers.projectTitle;
     console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
-    addTitleToREADME(answers.projectTitle);
+    console.log(composeLineForReadMe("foo"));
+    
+    //addTitleToREADME(answers.projectTitle);
+    readmeContents += composeTitleForREADME(answers.projectTitle);
+    
     addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
     addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
     generateTOC();
