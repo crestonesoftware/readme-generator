@@ -45,49 +45,34 @@ function writeToFile(fileName, data) {
     });
 }
 
-// adds a string, followed by a newline, to the contents of the generated readme
+// makes a String into a paragraph for the README by appending a newline
 // meant to be called by other functions with specific needs, e.g. to add a Title,
 // create a function that calls this function and pass a string to which you have prepended "# "
 function composeLineForReadMe(stringToAdd) {
     return stringToAdd + '\n';
 };
 
-// Adds the project title to the README contents
+// formats a String as a markdown title by prepending "# "
 function composeTitleForREADME(title) {
-    // prepend "# " to format the title
     return composeLineForReadMe(TEXT_STYLES.TITLE + title);
 }
 
-function addSectionToREADME(sectionHeading, sectionContents) {
-    // prepend "## " to format the heading
-    addLineToReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading);
-    
-    addBodyTextToREADME(sectionContents);
-
-    addSectionHeadingToTOC(sectionHeading);
-}
-
-//compose
 function composeSectionForREADME(sectionHeading, sectionContents) {
     addSectionHeadingToTOC(sectionHeading); //TODO
 
-    // prepend "## " to format the heading    
+    // format the heading as a Markdown heading by prepending "## "
+    // add an anchor point to which the analogous heading in the TOC will link
     return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
     composeBodyTextForREADME(sectionContents); 
 }
 
 // adds a bit of humble, plain text to the README contents
 // this function exists for completeness/readability only, and may be removed
-function addBodyTextToREADME(textToAdd) {
-    addLineToReadMe(textToAdd);
-}
-//COMPOSE
-// adds a bit of humble, plain text to the README contents
-// this function exists for completeness/readability only, and may be removed
 function composeBodyTextForREADME(textToAdd) {
     return composeLineForReadMe(textToAdd);
 }
 
+// pushes a String to the array of README contents, which is later joined to compose the README file 
 function addToREADMEArray(stringToAdd) {
     readmeContentsArray.push(stringToAdd);
 }
