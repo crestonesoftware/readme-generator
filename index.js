@@ -64,27 +64,12 @@ function addTitleToREADME(title) {
 }
 
 //COMPOSE
+// Adds the project title to the README contents
 function composeTitleForREADME(title) {
     // prepend "# " to format the title
     return composeLineForReadMe(TEXT_STYLES.TITLE + title);
 }
 
-
-
-
-
-// adds a bit of humble, plain text to the README contents
-// this function exists for completeness/readability only, and may be removed
-function addBodyTextToREADME(textToAdd) {
-    addLineToReadMe(textToAdd);
-}
-
-function addSectionHeadingToTOC(heading) {
-    // sample line       "- [Installation](#Installation)\n"
-    tableOfContents.push(`- [${heading}](#${heading})\n`);
-}
-
-// Adds the project title to the README contents
 function addSectionToREADME(sectionHeading, sectionContents) {
     // prepend "## " to format the heading
     addLineToReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading);
@@ -93,6 +78,40 @@ function addSectionToREADME(sectionHeading, sectionContents) {
 
     addSectionHeadingToTOC(sectionHeading);
 }
+
+//compose
+function composeSectionForREADME(sectionHeading, sectionContents) {
+    addSectionHeadingToTOC(sectionHeading);
+    
+    // prepend "## " to format the heading    
+    return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
+    composeBodyTextForREADME(sectionContents); 
+}
+
+// adds a bit of humble, plain text to the README contents
+// this function exists for completeness/readability only, and may be removed
+function addBodyTextToREADME(textToAdd) {
+    addLineToReadMe(textToAdd);
+}
+//COMPOSE
+// adds a bit of humble, plain text to the README contents
+// this function exists for completeness/readability only, and may be removed
+function composeBodyTextForREADME(textToAdd) {
+    return composeLineForReadMe(textToAdd);
+}
+
+
+
+
+
+
+
+function addSectionHeadingToTOC(heading) {
+    // sample line       "- [Installation](#Installation)\n"
+    tableOfContents.push(`- [${heading}](#${heading})\n`);
+}
+
+
 
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
@@ -112,8 +131,8 @@ async function promptUserForProjectDetails() {
     
     //addTitleToREADME(answers.projectTitle);
     readmeContents += composeTitleForREADME(answers.projectTitle);
-    
-    addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
+    readmeContents += composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription);
+    //addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
     addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
     generateTOC();
 }
