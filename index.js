@@ -65,6 +65,7 @@ function addTitleToREADME(title) {
 }
 
 function addSectionHeadingToTOC(heading) {
+    // sample line       "- [Installation](#Installation)\n"
     tableOfContents.push(`- [${heading}](#${heading})\n`);
 }
 
@@ -91,9 +92,6 @@ async function promptUserForProjectDetails() {
     projectTitle = answers.projectTitle;
     console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
     addTitleToREADME(answers.projectTitle);
-//    addLineToReadMe("- [Installation](#Installation)");
-//    addLineToReadMe("- [Usage](#Usage)");
-    //addSectionToREADME(SECTION_HEADINGS.TOC,`This is the table of contents`);
     addSectionToREADME(SECTION_HEADINGS.DESC,`This is the description for lucky project ${answers.projectDescription}`);
     addSectionToREADME(SECTION_HEADINGS.INSTALLATION,`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
     generateTOC();
