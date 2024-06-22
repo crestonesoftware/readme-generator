@@ -21,6 +21,7 @@ const tableOfContents = [];
 
 let projectTitle;
 let readmeContents = "";
+let readmeContentsArray = [];
 
 // FUNCTIONS
 
@@ -47,23 +48,10 @@ function writeToFile(fileName, data) {
 // adds a string, followed by a newline, to the contents of the generated readme
 // meant to be called by other functions with specific needs, e.g. to add a Title,
 // create a function that calls this function and pass a string to which you have prepended "# "
-function addLineToReadMe(stringToAdd) {
-    readmeContents += stringToAdd;
-    readmeContents +='\n';
-};
-
-//COMPOSE
 function composeLineForReadMe(stringToAdd) {
     return stringToAdd + '\n';
 };
 
-// Adds the project title to the README contents
-function addTitleToREADME(title) {
-    // prepend "# " to format the title
-    addLineToReadMe(TEXT_STYLES.TITLE + title);
-}
-
-//COMPOSE
 // Adds the project title to the README contents
 function composeTitleForREADME(title) {
     // prepend "# " to format the title
@@ -81,8 +69,8 @@ function addSectionToREADME(sectionHeading, sectionContents) {
 
 //compose
 function composeSectionForREADME(sectionHeading, sectionContents) {
-    addSectionHeadingToTOC(sectionHeading);
-    
+    addSectionHeadingToTOC(sectionHeading); //TODO
+
     // prepend "## " to format the heading    
     return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
     composeBodyTextForREADME(sectionContents); 
@@ -100,7 +88,9 @@ function composeBodyTextForREADME(textToAdd) {
     return composeLineForReadMe(textToAdd);
 }
 
-
+function addToREADMEArray(stringToAdd) {
+    readmeContentsArray.push(stringToAdd);
+}
 
 
 
@@ -130,6 +120,11 @@ async function promptUserForProjectDetails() {
     console.log(composeLineForReadMe("foo"));
     
     //addTitleToREADME(answers.projectTitle);
+    addToREADMEArray(composeTitleForREADME(answers.projectTitle));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
+    console.log(readmeContentsArray);
+    
+return;
     readmeContents += composeTitleForREADME(answers.projectTitle);
     readmeContents += composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription);
     readmeContents += composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions);
@@ -142,9 +137,10 @@ function init() {
     // using .then() directs execution to wait until the promise frompromptUserForProjectDetails()
     // is resolved before continuing
     promptUserForProjectDetails().then(()=> {
-        console.log(`in the .then(): ${projectTitle}. This one should be second`);
+
         console.log(readmeContents);
-        writeToFile("README.md", readmeContents);
+        //writeToFile("README.md", readmeContents);
+        writeToFile("README.md", readmeContentsArray.join(""));
     });
 }
 
