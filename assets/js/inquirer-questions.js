@@ -17,5 +17,11 @@ module.exports = [
         name: "installationInstructions",
         message: "How can users install your product?",
         default: "I haven't worked out the installation instructions yet"
+    },
+    {
+        type: "input",
+        message: "Let's help people find your brilliance on GitHub. what is your GitHub profile name?",
+        name: "githubProfileName",
+        default: "crestonesoftware"
     }
 ];
