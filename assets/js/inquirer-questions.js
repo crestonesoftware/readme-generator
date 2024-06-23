@@ -29,5 +29,11 @@ module.exports = [
         message: "At what email address would you like users to contact you with questions?",
         name: "emailAddress",
         default: "clever-dev@website.com"
+    },
+    {
+        type: "input",
+        message: "How can the user test this project?",
+        name: "testInstructions",
+        default: "- Open a defect tracking system.\n- Bang at the app for a while.\n- Note the things that go 'clunk' or 'kaboom!'"
     }
 ];

@@ -15,7 +15,8 @@ const SECTION_HEADINGS = {
     INSTALLATION: "Installation",
     USAGE: "Usage",
     TOC: "Table of Contents",
-    QUESTIONS: "Questions"
+    QUESTIONS: "Questions",
+    TEST_INSTRUCTIONS: "Testing"
 }
 
 const tableOfContents = [];
@@ -113,10 +114,12 @@ async function promptUserForProjectDetails() {
 
   //  projectTitle = answers.projectTitle;
     const {projectTitle, projectDescription, installationInstructions,
-        githubProfileName, emailAddress
+        githubProfileName, emailAddress, testInstructions
     } = answers;
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
     // although the TOC appears in the README before sections, we have to generate it here,
