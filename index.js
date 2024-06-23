@@ -90,9 +90,14 @@ function composeBodyTextForREADME(textToAdd) {
     return composeLineForReadMe(textToAdd);
 }
 
-//  Formats githubProfileName as a link
+//  return githubProfileName as a link
 function composeGitHubLink(githubProfileName) {
-    return `Find this and other projects on GitHub: <a href="https://github.com/users/${githubProfileName}">${githubProfileName}</a>\n`;
+    return `Find this and other projects on GitHub: <a href="https://github.com/users/${githubProfileName}">${githubProfileName}</a>`;
+}
+
+//  return email address as a mailto link
+function composeEmailLink(emailAddress) {
+    return `\n\nGot questions? Contact me: <a href="mailto:${emailAddress}">${emailAddress}</a>`;
 }
 
 // pushes a String to the array of README contents, which is later joined to compose the README file 
@@ -108,12 +113,12 @@ async function promptUserForProjectDetails() {
 
   //  projectTitle = answers.projectTitle;
     const {projectTitle, projectDescription, installationInstructions,
-        githubProfileName
+        githubProfileName, emailAddress
     } = answers;
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName)));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
     generateTOC();
