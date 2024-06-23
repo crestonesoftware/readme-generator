@@ -23,5 +23,11 @@ module.exports = [
         message: "Let's help people find your brilliance on GitHub. what is your GitHub profile name?",
         name: "githubProfileName",
         default: "crestonesoftware"
+    },
+    {
+        type: "input",
+        message: "At what email address would you like users to contact you with questions?",
+        name: "emailAddress",
+        default: "clever-dev@website.com"
     }
 ];
