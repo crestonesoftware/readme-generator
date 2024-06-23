@@ -1,6 +1,9 @@
 #output (directory and the generated README files)
 output/
 
+# scratch HTML file
+scratch.HTML
+
 # Logs
 logs
 *.log

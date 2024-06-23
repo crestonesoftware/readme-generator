@@ -20,7 +20,7 @@ const SECTION_HEADINGS = {
 
 const tableOfContents = [];
 
-let projectTitle;
+//let projectTitle;
 let readmeContents = "";
 let readmeContentsArray = [];
 
@@ -90,6 +90,11 @@ function composeBodyTextForREADME(textToAdd) {
     return composeLineForReadMe(textToAdd);
 }
 
+//  Formats githubProfileName as a link
+function composeGitHubLink(githubProfileName) {
+    return `Find this and other projects on GitHub: <a href="https://github.com/users/${githubProfileName}">${githubProfileName}</a>\n`;
+}
+
 // pushes a String to the array of README contents, which is later joined to compose the README file 
 function addToREADMEArray(stringToAdd) {
     readmeContentsArray.push(stringToAdd);
@@ -101,11 +106,14 @@ function addToREADMEArray(stringToAdd) {
 async function promptUserForProjectDetails() {
     const answers = await inquirer.prompt(questions);
 
-    projectTitle = answers.projectTitle;
+  //  projectTitle = answers.projectTitle;
+    const {projectTitle, projectDescription, installationInstructions,
+        githubProfileName
+    } = answers;
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,"email and guthub"));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName)));
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
     generateTOC();
