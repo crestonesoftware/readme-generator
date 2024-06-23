@@ -107,12 +107,9 @@ async function promptUserForProjectDetails() {
     //addTitleToREADME(answers.projectTitle);
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
     console.log(readmeContentsArray);
     
-return;
-    readmeContents += composeTitleForREADME(answers.projectTitle);
-    readmeContents += composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription);
-    readmeContents += composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions);
     generateTOC();
 }
 
