@@ -60,12 +60,10 @@ function composeTitleForREADME(title) {
 function addSectionHeadingToTOC(heading) {
     // sample line       "- [Installation](#Installation)\n"
     tableOfContents.push(`- [${heading}](#${heading})\n`);
-    console.log(`added to the TOC: ${heading} now it is `, tableOfContents);
 }
 
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
-    console.log("The TOC is ", tableOfContents.join(""));
     readmeContentsArray.splice(1,0,composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true));
 }
 
@@ -95,16 +93,10 @@ async function promptUserForProjectDetails() {
     const answers = await inquirer.prompt(questions);
 
     projectTitle = answers.projectTitle;
-    console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
-    console.log(composeLineForReadMe("foo"));
-    
-    //addTitleToREADME(answers.projectTitle);
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
-    //console.log(readmeContentsArray);
     generateTOC();
-
 }
 
 
@@ -113,9 +105,6 @@ function init() {
     // using .then() directs execution to wait until the promise frompromptUserForProjectDetails()
     // is resolved before continuing
     promptUserForProjectDetails().then(()=> {
-
-        console.log(readmeContents);
-        //writeToFile("README.md", readmeContents);
         writeToFile("README.md", readmeContentsArray.join(""));
     });
 }
