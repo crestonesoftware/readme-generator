@@ -119,7 +119,7 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,"license stuff goes here"));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,answers.license));
     
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
