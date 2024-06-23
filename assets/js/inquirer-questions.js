@@ -43,6 +43,12 @@ module.exports = [
         default: "clever-dev@website.com"
     },
     {
+        type: "input",
+        message: "Would you like to give credit for any contributions?",
+        name: "contributions",
+        default: "Thank you to Ben B Wright for help simplifying the promise handling."
+    },
+    {
         type: "list",
         message: "Which license applies to this project?",
         name: "license",
