@@ -1,10 +1,9 @@
 // DEPENDENCIES
 const fs = require('fs');
 const inquirer = require('inquirer');
-
 const questions = require("./assets/js/inquirer-questions.js");
-// DATA
 
+// DATA
 const TEXT_STYLES = {
     TITLE: "# ",
     SECTION_HEADING: "## ",
@@ -17,12 +16,12 @@ const SECTION_HEADINGS = {
     TOC: "Table of Contents",
     QUESTIONS: "Questions",
     TEST_INSTRUCTIONS: "Testing",
-    LICENSE: "License"
+    LICENSE: "License",
+    USAGE: "Usage"
 }
 
 const tableOfContents = [];
-//let readmeContents = "";
-let readmeContentsArray = [];
+const readmeContentsArray = [];
 
 // FUNCTIONS
 
@@ -105,6 +104,10 @@ function addToREADMEArray(stringToAdd) {
     readmeContentsArray.push(stringToAdd);
 }
 
+function composeLicenseSectionBody(license) {
+    return `This project is licensed under the ${license} license.`;
+}
+
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
 // when calling, be sure to use promptUserForProjectDetails().then() for next steps
@@ -112,14 +115,15 @@ async function promptUserForProjectDetails() {
     const answers = await inquirer.prompt(questions);
 
     const {projectTitle, projectDescription, installationInstructions,
-        githubProfileName, emailAddress, testInstructions
+        githubProfileName, emailAddress, testInstructions, usageInstructions
     } = answers;
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.USAGE,answers.usageInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,answers.license));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,composeLicenseSectionBody(answers.license)));
     
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added

@@ -20,6 +20,18 @@ module.exports = [
     },
     {
         type: "input",
+        message: "How can the user use this project?",
+        name: "usageInstructions",
+        default: "- Click [Go] \n- Do wonderful stuff \n- click [Stop]"
+    },
+    {
+        type: "input",
+        message: "How can the user test this project?",
+        name: "testInstructions",
+        default: "- Open a defect tracking system.\n- Bang at the app for a while.\n- Note the things that go 'clunk' or 'kaboom!'"
+    },
+    {
+        type: "input",
         message: "Let's help people find your brilliance on GitHub. what is your GitHub profile name?",
         name: "githubProfileName",
         default: "crestonesoftware"
@@ -29,12 +41,6 @@ module.exports = [
         message: "At what email address would you like users to contact you with questions?",
         name: "emailAddress",
         default: "clever-dev@website.com"
-    },
-    {
-        type: "input",
-        message: "How can the user test this project?",
-        name: "testInstructions",
-        default: "- Open a defect tracking system.\n- Bang at the app for a while.\n- Note the things that go 'clunk' or 'kaboom!'"
     },
     {
         type: "list",
