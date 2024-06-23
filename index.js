@@ -2,32 +2,26 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+const questions = require("./assets/js/inquirer-questions.js");
 // DATA
-// TODO: Create an array of questions for user input
-const questions = [
-    {
-        type: "input",
-        name: "projectTitle",
-        message: "What is the name of your project?"
-    },
-    {
-        type: "input",
-        name: "projectDescription",
-        message: "Describe your project"
-    },
-    {
-        type: "input",
-        name: "installationInstructions",
-        message: "How can users install your product?"
-    }
-];
 
 const TEXT_STYLES = {
     TITLE: "# ",
     SECTION_HEADING: "## ",
 }
+
+const SECTION_HEADINGS = {
+    DESC: "Description",
+    INSTALLATION: "Installation",
+    USAGE: "Usage",
+    TOC: "Table of Contents"
+}
+
+const tableOfContents = [];
+
 let projectTitle;
 let readmeContents = "";
+let readmeContentsArray = [];
 
 // FUNCTIONS
 
@@ -51,50 +45,68 @@ function writeToFile(fileName, data) {
     });
 }
 
-// adds a string, followed by a newline, to the contents of the generated readme
+// makes a String into a paragraph for the README by appending a newline
 // meant to be called by other functions with specific needs, e.g. to add a Title,
 // create a function that calls this function and pass a string to which you have prepended "# "
-function addLineToReadMe(stringToAdd) {
-    readmeContents += stringToAdd;
-    readmeContents +='\n';
+function composeLineForReadMe(stringToAdd) {
+    return stringToAdd + '\n';
 };
+
+// formats a String as a markdown title by prepending "# "
+function composeTitleForREADME(title) {
+    return composeLineForReadMe(TEXT_STYLES.TITLE + title);
+}
+
+//  adds a section heading to the TOC array
+//  - formatted as a bullet in a list
+//  - with a link to the anchor point for the section
+//  example: "- [Installation](#Installation)\n"
+function addSectionHeadingToTOC(heading) {
+    tableOfContents.push(`- [${heading}](#${heading})\n`);
+}
+
+//  joins the array of section TOC section headings into a single string
+//  then splices it into the readMeContentsArray after the Title
+function generateTOC() {
+    const generatedTOC = tableOfContents.join("");
+    readmeContentsArray.splice(1,0,composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true));
+}
+
+// 1) Adds the section heading to the TOC array,
+// 2) composes and returns the section:
+// - formats the section heading as a Markdown heading by prepending "## " and
+// - adds an anchor point to which the analogous heading in the TOC will link
+// - appends the section contents
+function composeSectionForREADME(sectionHeading, sectionContents, noAnchorTagInHeading) {
+    addSectionHeadingToTOC(sectionHeading); //TODO
+    return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
+    composeBodyTextForREADME(sectionContents); 
+}
 
 // adds a bit of humble, plain text to the README contents
 // this function exists for completeness/readability only, and may be removed
-function addBodyTextToREADME(textToAdd) {
-    addLineToReadMe(textToAdd);
+function composeBodyTextForREADME(textToAdd) {
+    return composeLineForReadMe(textToAdd);
 }
 
-// Adds the project title to the README contents
-function addTitleToREADME(title) {
-    // prepend "# " to format the title
-    addLineToReadMe(TEXT_STYLES.TITLE + title);
+// pushes a String to the array of README contents, which is later joined to compose the README file 
+function addToREADMEArray(stringToAdd) {
+    readmeContentsArray.push(stringToAdd);
 }
-
-// Adds the project title to the README contents
-function addSectionToREADME(sectionHeading, sectionContents) {
-    // prepend "## " to format the heading
-    addLineToReadMe(TEXT_STYLES.SECTION_HEADING + sectionHeading);
-    addBodyTextToREADME(sectionContents);
-}
-
-
-
 
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
 // when calling, be sure to use promptUserForProjectDetails().then() for next steps
 async function promptUserForProjectDetails() {
-    await inquirer.
-        prompt(questions)
-    .then((answers) => {
-        projectTitle = answers.projectTitle;
-        console.log(`in promptUserForProjectDetails(): ${answers.projectTitle}. This one should be first.`);
-        addTitleToREADME(answers.projectTitle);
-        addSectionToREADME("Description",`This is the description for lucky project ${answers.projectDescription}`);
-        addSectionToREADME("Installation Instructions",`Install the product by doing some nifty stuff like this ${answers.installationInstructions}`);
-        
-    })
+    const answers = await inquirer.prompt(questions);
+
+    projectTitle = answers.projectTitle;
+    addToREADMEArray(composeTitleForREADME(answers.projectTitle));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
+    // although the TOC appears in the README before sections, we have to generate it here,
+    // after the section headings have been added
+    generateTOC();
 }
 
 // INIT
@@ -102,9 +114,7 @@ function init() {
     // using .then() directs execution to wait until the promise frompromptUserForProjectDetails()
     // is resolved before continuing
     promptUserForProjectDetails().then(()=> {
-        console.log(`in the .then(): ${projectTitle}. This one should be second`);
-        console.log(readmeContents);
-        writeToFile("README.md", readmeContents);
+        writeToFile("README.md", readmeContentsArray.join(""));
     });
 }
 
