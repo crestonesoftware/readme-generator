@@ -57,9 +57,20 @@ function composeTitleForREADME(title) {
     return composeLineForReadMe(TEXT_STYLES.TITLE + title);
 }
 
-function composeSectionForREADME(sectionHeading, sectionContents) {
-    addSectionHeadingToTOC(sectionHeading); //TODO
+function addSectionHeadingToTOC(heading) {
+    // sample line       "- [Installation](#Installation)\n"
+    tableOfContents.push(`- [${heading}](#${heading})\n`);
+    console.log(`added to the TOC: ${heading} now it is `, tableOfContents);
+}
 
+function generateTOC() {
+    const generatedTOC = tableOfContents.join("");
+    console.log("The TOC is ", tableOfContents.join(""));
+    return composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true);    
+}
+
+function composeSectionForREADME(sectionHeading, sectionContents, noAnchorTagInHeading) {
+    addSectionHeadingToTOC(sectionHeading); //TODO
     // format the heading as a Markdown heading by prepending "## "
     // add an anchor point to which the analogous heading in the TOC will link
     return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
@@ -77,23 +88,6 @@ function addToREADMEArray(stringToAdd) {
     readmeContentsArray.push(stringToAdd);
 }
 
-
-
-
-
-function addSectionHeadingToTOC(heading) {
-    // sample line       "- [Installation](#Installation)\n"
-    tableOfContents.push(`- [${heading}](#${heading})\n`);
-}
-
-
-
-function generateTOC() {
-    const generatedTOC = tableOfContents.join("");
-    
-    addSectionToREADME(SECTION_HEADINGS.TOC, generatedTOC);    
-}
-
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
 // when calling, be sure to use promptUserForProjectDetails().then() for next steps
@@ -108,9 +102,9 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
-    console.log(readmeContentsArray);
-    
-    generateTOC();
+    //console.log(readmeContentsArray);
+    addToREADMEArray(generateTOC());
+
 }
 
 
