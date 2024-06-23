@@ -57,20 +57,28 @@ function composeTitleForREADME(title) {
     return composeLineForReadMe(TEXT_STYLES.TITLE + title);
 }
 
+//  adds a section heading to the TOC array
+//  - formatted as a bullet in a list
+//  - with a link to the anchor point for the section
+//  example: "- [Installation](#Installation)\n"
 function addSectionHeadingToTOC(heading) {
-    // sample line       "- [Installation](#Installation)\n"
     tableOfContents.push(`- [${heading}](#${heading})\n`);
 }
 
+//  joins the array of section TOC section headings into a single string
+//  then splices it into the readMeContentsArray after the Title
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
     readmeContentsArray.splice(1,0,composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true));
 }
 
+// 1) Adds the section heading to the TOC array,
+// 2) composes and returns the section:
+// - formats the section heading as a Markdown heading by prepending "## " and
+// - adds an anchor point to which the analogous heading in the TOC will link
+// - appends the section contents
 function composeSectionForREADME(sectionHeading, sectionContents, noAnchorTagInHeading) {
     addSectionHeadingToTOC(sectionHeading); //TODO
-    // format the heading as a Markdown heading by prepending "## "
-    // add an anchor point to which the analogous heading in the TOC will link
     return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
     composeBodyTextForREADME(sectionContents); 
 }
@@ -96,9 +104,10 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
+    // although the TOC appears in the README before sections, we have to generate it here,
+    // after the section headings have been added
     generateTOC();
 }
-
 
 // INIT
 function init() {
