@@ -66,7 +66,7 @@ function addSectionHeadingToTOC(heading) {
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
     console.log("The TOC is ", tableOfContents.join(""));
-    return composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true);    
+    readmeContentsArray.splice(1,0,composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true));
 }
 
 function composeSectionForREADME(sectionHeading, sectionContents, noAnchorTagInHeading) {
@@ -103,7 +103,7 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
     //console.log(readmeContentsArray);
-    addToREADMEArray(generateTOC());
+    generateTOC();
 
 }
 
