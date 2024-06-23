@@ -21,9 +21,7 @@ const SECTION_HEADINGS = {
 }
 
 const tableOfContents = [];
-
-//let projectTitle;
-let readmeContents = "";
+//let readmeContents = "";
 let readmeContentsArray = [];
 
 // FUNCTIONS
@@ -113,7 +111,6 @@ function addToREADMEArray(stringToAdd) {
 async function promptUserForProjectDetails() {
     const answers = await inquirer.prompt(questions);
 
-  //  projectTitle = answers.projectTitle;
     const {projectTitle, projectDescription, installationInstructions,
         githubProfileName, emailAddress, testInstructions
     } = answers;
@@ -121,7 +118,6 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,"license stuff goes here"));
     

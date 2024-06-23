@@ -35,5 +35,12 @@ module.exports = [
         message: "How can the user test this project?",
         name: "testInstructions",
         default: "- Open a defect tracking system.\n- Bang at the app for a while.\n- Note the things that go 'clunk' or 'kaboom!'"
+    },
+    {
+        type: "list",
+        message: "Which license applies to this project?",
+        name: "license",
+        choices: ["Apache","GNU","MIT","Mozilla"],
+        default: "MIT"
     }
 ];
