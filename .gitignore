@@ -4,6 +4,9 @@ output/
 # scratch HTML file
 scratch.HTML
 
+#VSC workspace
+readme-generator.code-workspace
+
 # Logs
 logs
 *.log
