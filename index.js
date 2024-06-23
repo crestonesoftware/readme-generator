@@ -14,7 +14,8 @@ const SECTION_HEADINGS = {
     DESC: "Description",
     INSTALLATION: "Installation",
     USAGE: "Usage",
-    TOC: "Table of Contents"
+    TOC: "Table of Contents",
+    QUESTIONS: "Questions"
 }
 
 const tableOfContents = [];
@@ -104,6 +105,7 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,"email and guthub"));
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
     generateTOC();
