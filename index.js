@@ -1,4 +1,6 @@
 // DEPENDENCIES
+
+const gm = require('./utils/generateMarkdown.js');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const questions = require("./assets/js/inquirer-questions.js");
@@ -69,7 +71,7 @@ function generateTOC() {
 // - appends the section contents
 function composeSectionForREADME(sectionHeading, sectionContents, noAnchorTagInHeading) {
     addSectionHeadingToTOC(sectionHeading); //TODO
-    return composeLineForReadMe(TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
+    return composeLineForReadMe(constants.TEXT_STYLES.SECTION_HEADING + `<a name="${sectionHeading}"></a>` + sectionHeading) +     
     composeBodyTextForREADME(sectionContents); 
 }
 
@@ -94,9 +96,7 @@ function addToREADMEArray(stringToAdd) {
     readmeContentsArray.push(stringToAdd);
 }
 
-function composeLicenseSectionBody(license) {
-    return `This project is licensed under the ${license} license.`;
-}
+
 
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
@@ -115,7 +115,7 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
     addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
     addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions));
-    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.LICENSE,composeLicenseSectionBody(answers.license)));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.LICENSE,gm.composeLicenseSectionBody(answers)));
     
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
