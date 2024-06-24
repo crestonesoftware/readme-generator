@@ -5,11 +5,11 @@ const questions = require("./assets/js/inquirer-questions.js");
 const constants = require("./assets/js/constants.js");
 
 // DATA
-const TEXT_STYLES = {
-    TITLE: "# ",
-    SECTION_HEADING: "## ",
-}
 
+
+// Arrays of strings, into which we will push the contents of the README file,
+// line by line. To write the file, the array contents will be joined. This avoids
+// frequent String concatenation.
 const tableOfContents = [];
 const readmeContentsArray = [];
 
@@ -44,7 +44,7 @@ function composeLineForReadMe(stringToAdd) {
 
 // formats a String as a markdown title by prepending "# "
 function composeTitleForREADME(title) {
-    return composeLineForReadMe(TEXT_STYLES.TITLE + title);
+    return composeLineForReadMe(constants.TEXT_STYLES.TITLE + title);
 }
 
 //  adds a section heading to the TOC array

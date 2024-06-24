@@ -58,5 +58,10 @@ module.exports = {
         QUESTIONS: "Questions",
         CONTRIBUTIONS: "Contributions",
         LICENSE: "License"
+    },
+    
+    TEXT_STYLES: {
+        TITLE: "# ",
+        SECTION_HEADING: "## ",
     }
 }
