@@ -1,6 +1,7 @@
 module.exports = {
     LICENSES: {
         APACHE: {
+            Name: "APACHE",
             DisplayText: "Apache 2.0",
             Badge: "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
         },
@@ -24,6 +25,15 @@ module.exports = {
             DisplayText: "The Unlicense",
             Badge:  "[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)"
         }
+        
+    },
+    getLicensesAsArray() {
+        const licensesAsArray = [];
+        for (const [key, value] of Object.entries(this.LICENSES)) {
+            licensesAsArray.push(value.DisplayText);
+        }
+        return licensesAsArray;
+        
     },
 
     SECTION_HEADINGS : {
