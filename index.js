@@ -2,22 +2,12 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const questions = require("./assets/js/inquirer-questions.js");
+const constants = require("./assets/js/constants.js");
 
 // DATA
 const TEXT_STYLES = {
     TITLE: "# ",
     SECTION_HEADING: "## ",
-}
-
-const SECTION_HEADINGS = {
-    TOC: "Table of Contents",
-    DESC: "Description",
-    INSTALLATION: "Installation",
-    USAGE: "Usage",
-    TEST_INSTRUCTIONS: "Testing",
-    QUESTIONS: "Questions",
-    CONTRIBUTIONS: "Contributions",
-    LICENSE: "License"
 }
 
 const tableOfContents = [];
@@ -69,7 +59,7 @@ function addSectionHeadingToTOC(heading) {
 //  then splices it into the readMeContentsArray after the Title
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
-    readmeContentsArray.splice(1,0,composeSectionForREADME(SECTION_HEADINGS.TOC, generatedTOC, true));
+    readmeContentsArray.splice(1,0,composeSectionForREADME(constants.SECTION_HEADINGS.TOC, generatedTOC, true));
 }
 
 // 1) Adds the section heading to the TOC array,
@@ -119,13 +109,13 @@ async function promptUserForProjectDetails() {
         contributions
     } = answers;
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.USAGE,answers.usageInstructions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions));
-    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,composeLicenseSectionBody(answers.license)));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.DESC,answers.projectDescription));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.USAGE,answers.usageInstructions));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions));
+    addToREADMEArray(composeSectionForREADME(constants.SECTION_HEADINGS.LICENSE,composeLicenseSectionBody(answers.license)));
     
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
