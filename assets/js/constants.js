@@ -35,7 +35,14 @@ module.exports = {
         return licensesAsArray;
         
     },
-
+    getBadgeLinkFromDisplayText(displayText) {
+        let badgeLink = "foo";
+        for (const [key, value] of Object.entries(this.LICENSES)) {
+            if(value.DisplayText === displayText);
+                return value.Badge;
+        }
+        
+    },
     SECTION_HEADINGS : {
         TOC: "Table of Contents",
         DESC: "Description",
