@@ -10,17 +10,6 @@ const TEXT_STYLES = {
     SECTION_HEADING: "## ",
 }
 
-// const SECTION_HEADINGS = {
-//     TOC: "Table of Contents",
-//     DESC: "Description",
-//     INSTALLATION: "Installation",
-//     USAGE: "Usage",
-//     TEST_INSTRUCTIONS: "Testing",
-//     QUESTIONS: "Questions",
-//     CONTRIBUTIONS: "Contributions",
-//     LICENSE: "License"
-// }
-
 const tableOfContents = [];
 const readmeContentsArray = [];
 
