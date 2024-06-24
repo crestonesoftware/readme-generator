@@ -52,7 +52,7 @@ module.exports = [
         type: "list",
         message: "Which license applies to this project?",
         name: "license",
-        choices: ["Apache","GNU","MIT","Mozilla"],
+        choices: ["Apache 2.0","BSD","GNU GPL v3","MIT","Mozilla","Unlicense"],
         default: "MIT"
     }
 ];
