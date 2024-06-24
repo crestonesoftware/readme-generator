@@ -10,14 +10,14 @@ const TEXT_STYLES = {
 }
 
 const SECTION_HEADINGS = {
+    TOC: "Table of Contents",
     DESC: "Description",
     INSTALLATION: "Installation",
     USAGE: "Usage",
-    TOC: "Table of Contents",
-    QUESTIONS: "Questions",
     TEST_INSTRUCTIONS: "Testing",
-    LICENSE: "License",
-    USAGE: "Usage"
+    QUESTIONS: "Questions",
+    CONTRIBUTIONS: "Contributions",
+    LICENSE: "License"
 }
 
 const tableOfContents = [];
@@ -115,7 +115,8 @@ async function promptUserForProjectDetails() {
     const answers = await inquirer.prompt(questions);
 
     const {projectTitle, projectDescription, installationInstructions,
-        githubProfileName, emailAddress, testInstructions, usageInstructions
+        githubProfileName, emailAddress, testInstructions, usageInstructions,
+        contributions
     } = answers;
     addToREADMEArray(composeTitleForREADME(answers.projectTitle));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.DESC,answers.projectDescription));
@@ -123,6 +124,7 @@ async function promptUserForProjectDetails() {
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.USAGE,answers.usageInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.QUESTIONS,composeGitHubLink(githubProfileName) +  composeEmailLink(emailAddress)));
+    addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions));
     addToREADMEArray(composeSectionForREADME(SECTION_HEADINGS.LICENSE,composeLicenseSectionBody(answers.license)));
     
     // although the TOC appears in the README before sections, we have to generate it here,
