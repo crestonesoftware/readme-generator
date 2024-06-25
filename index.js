@@ -44,11 +44,6 @@ function renderLineForReadMe(stringToAdd) {
     return stringToAdd + '\n';
 };
 
-// formats a String as a markdown title by prepending "# "
-function renderTitleForREADME(title) {
-    return renderLineForReadMe(constants.TEXT_STYLES.TITLE + title);
-}
-
 //  adds a section heading to the TOC array
 //  - formatted as a bullet in a list
 //  - with a link to the anchor point for the section
@@ -98,6 +93,8 @@ function addToREADMEArray(stringToAdd) {
 
 ///////////////////////////////////////////
 // RENDER SECTIONS
+// formats a String as a markdown title by prepending "# "
+function renderTitle(answers) {    return renderLineForReadMe(constants.TEXT_STYLES.TITLE + answers.title); }
 function renderDescription(answers) {   return renderSection(constants.SECTION_HEADINGS.DESC,answers.projectDescription);   }
 function renderInstallation(answers) {  return renderSection(constants.SECTION_HEADINGS.INSTALLATION,answers.installationInstructions); }
 function renderUsage(answers) {         return renderSection(constants.SECTION_HEADINGS.USAGE,answers.usageInstructions); }
@@ -116,7 +113,8 @@ async function promptUserForProjectDetails() {
         githubProfileName, emailAddress, testInstructions, usageInstructions,
         contributions
     } = answers;
-    addToREADMEArray(renderTitleForREADME(answers.projectTitle));
+    addToREADMEArray(renderTitle(answers));
+    //addToREADMEArray(renderTitleForREADME(answers.projectTitle));
     addToREADMEArray(renderDescription(answers));
     addToREADMEArray(renderInstallation(answers));
     addToREADMEArray(renderUsage(answers));
