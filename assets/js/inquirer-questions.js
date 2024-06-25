@@ -15,7 +15,8 @@ module.exports = [
         type: "input",
         name: "projectDescription",
         message: "Describe your project",
-        default: "Generates README.md files from user input, and somehow involves a catapult."
+        default: "Generates README.md files from user input, and somehow involves a giant magnet, a catapult, and \
+        a bird running on the roads of the American southwest."
     },
     {
         type: "input",
@@ -49,8 +50,8 @@ module.exports = [
     },
     {
         type: "input",
-        message: "Would you like to give credit for any contributions?",
-        name: "contributions",
+        message: "Would you like to give credit for any help you received?",
+        name: "credits",
         default: "Thank you to Ben B Wright for help simplifying the promise handling."
     },
     {

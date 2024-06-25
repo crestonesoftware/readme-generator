@@ -57,7 +57,7 @@ function addSectionHeadingToTOC(heading) {
 //  then splices it into the readMeContentsArray after the Title
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
-    readmeContentsArray.splice(2,0,renderSection(constants.SECTION_HEADINGS.TOC, generatedTOC, true));
+    readmeContentsArray.splice(3,0,renderSection(constants.SECTION_HEADINGS.TOC, generatedTOC, true));
 }
 
 // 1) Adds the section heading to the TOC array,
@@ -101,7 +101,7 @@ function renderInstallation(installationInstructions) {  return renderSection(co
 function renderUsage(usageInstructions) {         return renderSection(constants.SECTION_HEADINGS.USAGE,usageInstructions); }
 function renderTestInstructions(testInstructions) {return renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,testInstructions);  }
 function renderQuestions(githubProfileName, emailAddress) {     return renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(githubProfileName) +  renderEmailLink(emailAddress)); }
-function renderContributions(contributions) { return renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,contributions); }
+function renderCredits(credits) { return renderSection(constants.SECTION_HEADINGS.CREDITS,credits); }
 function renderLicense(answers) { return renderSection(constants.SECTION_HEADINGS.LICENSE,gm.renderLicenseSectionBody(answers)); }
 
 function renderBadgeLink(licenseDisplayText) {
@@ -117,16 +117,17 @@ async function promptUserForProjectDetails() {
 
     const {projectTitle, projectDescription, installationInstructions,
         githubProfileName, emailAddress, testInstructions, usageInstructions,
-        contributions, license
+        credits, license
     } = answers;
     addToREADMEArray(renderTitle(projectTitle));
     addToREADMEArray(renderBadgeLink(license));
     addToREADMEArray(renderDescription(projectDescription));
     addToREADMEArray(renderInstallation(installationInstructions));
     addToREADMEArray(renderUsage(usageInstructions));
+    addToREADMEArray(renderCredits(credits));
     addToREADMEArray(renderTestInstructions(testInstructions));
     addToREADMEArray(renderQuestions(githubProfileName,emailAddress));
-    addToREADMEArray(renderContributions(contributions));
+    
     addToREADMEArray(renderLicense(answers));
     
     // although the TOC appears in the README before sections, we have to generate it here,
