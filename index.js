@@ -2,10 +2,10 @@
 const fs = require("fs");
 
 // DEPENDENCIES
-const gm = require("./utils/generateMarkdown.js");
+const gm = require("./lib/generateMarkdown.js");
 const inquirer = require("inquirer");
-const questions = require("./assets/js/inquirer-questions.js");
-const constants = require("./assets/js/constants.js");
+const questions = require("./lib/inquirer-questions.js");
+const constants = require("./lib/constants.js");
 
 // DATA
 
