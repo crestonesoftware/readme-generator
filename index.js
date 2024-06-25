@@ -1,7 +1,8 @@
-// DEPENDENCIES
-
-const gm = require('./utils/generateMarkdown.js');
+// 3RD PARTY DEPENDENCIES
 const fs = require('fs');
+
+// DEPENDENCIES
+const gm = require('./utils/generateMarkdown.js');
 const inquirer = require('inquirer');
 const questions = require("./assets/js/inquirer-questions.js");
 const constants = require("./assets/js/constants.js");
@@ -56,7 +57,7 @@ function addSectionHeadingToTOC(heading) {
 //  then splices it into the readMeContentsArray after the Title
 function generateTOC() {
     const generatedTOC = tableOfContents.join("");
-    readmeContentsArray.splice(1,0,renderSection(constants.SECTION_HEADINGS.TOC, generatedTOC, true));
+    readmeContentsArray.splice(2,0,renderSection(constants.SECTION_HEADINGS.TOC, generatedTOC, true));
 }
 
 // 1) Adds the section heading to the TOC array,
@@ -94,14 +95,19 @@ function addToREADMEArray(stringToAdd) {
 ///////////////////////////////////////////
 // RENDER SECTIONS
 // formats a String as a markdown title by prepending "# "
-function renderTitle(answers) {    return renderLineForReadMe(constants.TEXT_STYLES.TITLE + answers.title); }
-function renderDescription(answers) {   return renderSection(constants.SECTION_HEADINGS.DESC,answers.projectDescription);   }
-function renderInstallation(answers) {  return renderSection(constants.SECTION_HEADINGS.INSTALLATION,answers.installationInstructions); }
-function renderUsage(answers) {         return renderSection(constants.SECTION_HEADINGS.USAGE,answers.usageInstructions); }
-function renderTestInstructions(answers) {return renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions);  }
-function renderQuestions(answers) {     return renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(answers.githubProfileName) +  renderEmailLink(answers.emailAddress)); }
-function renderContributions(answers) { return renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions); }
+function renderTitle(title) {    return renderLineForReadMe(constants.TEXT_STYLES.TITLE + title); }
+function renderDescription(description) {   return renderSection(constants.SECTION_HEADINGS.DESC,description);   }
+function renderInstallation(installationInstructions) {  return renderSection(constants.SECTION_HEADINGS.INSTALLATION,installationInstructions); }
+function renderUsage(usageInstructions) {         return renderSection(constants.SECTION_HEADINGS.USAGE,usageInstructions); }
+function renderTestInstructions(testInstructions) {return renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,testInstructions);  }
+function renderQuestions(githubProfileName, emailAddress) {     return renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(githubProfileName) +  renderEmailLink(emailAddress)); }
+function renderContributions(contributions) { return renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,contributions); }
 function renderLicense(answers) { return renderSection(constants.SECTION_HEADINGS.LICENSE,gm.renderLicenseSectionBody(answers)); }
+
+function renderBadgeLink(licenseDisplayText) {
+    return constants.getBadgeLinkFromDisplayText(licenseDisplayText);
+}
+
 
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
@@ -111,16 +117,16 @@ async function promptUserForProjectDetails() {
 
     const {projectTitle, projectDescription, installationInstructions,
         githubProfileName, emailAddress, testInstructions, usageInstructions,
-        contributions
+        contributions, license
     } = answers;
-    addToREADMEArray(renderTitle(answers));
-    //addToREADMEArray(renderTitleForREADME(answers.projectTitle));
-    addToREADMEArray(renderDescription(answers));
-    addToREADMEArray(renderInstallation(answers));
-    addToREADMEArray(renderUsage(answers));
-    addToREADMEArray(renderTestInstructions(answers));
-    addToREADMEArray(renderQuestions(answers));
-    addToREADMEArray(renderContributions(answers));
+    addToREADMEArray(renderTitle(projectTitle));
+    addToREADMEArray(renderBadgeLink(license));
+    addToREADMEArray(renderDescription(projectDescription));
+    addToREADMEArray(renderInstallation(installationInstructions));
+    addToREADMEArray(renderUsage(usageInstructions));
+    addToREADMEArray(renderTestInstructions(testInstructions));
+    addToREADMEArray(renderQuestions(githubProfileName,emailAddress));
+    addToREADMEArray(renderContributions(contributions));
     addToREADMEArray(renderLicense(answers));
     
     // although the TOC appears in the README before sections, we have to generate it here,
@@ -130,7 +136,7 @@ async function promptUserForProjectDetails() {
 
 // INIT
 function init() {
-    // using .then() directs execution to wait until the promise frompromptUserForProjectDetails()
+    // using .then() directs execution to wait until the promise from promptUserForProjectDetails()
     // is resolved before continuing
     promptUserForProjectDetails().then(()=> {
         writeToFile("README.md", readmeContentsArray.join(""));

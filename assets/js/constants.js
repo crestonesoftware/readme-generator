@@ -43,7 +43,7 @@ module.exports = {
     getBadgeLinkFromDisplayText(displayText) {
         for (const [key, value] of Object.entries(this.LICENSES)) {
             if(value.DisplayText === displayText);
-                return value.Badge;
+                return value.Badge + '\n';
         }
         
     },
