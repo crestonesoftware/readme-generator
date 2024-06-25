@@ -4,6 +4,7 @@ output/
 # sandbox files
 scratch.HTML
 scratch.js
+tmp/
 
 #VSC workspace
 readme-generator.code-workspace
