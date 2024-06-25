@@ -28,6 +28,9 @@ Generates README.md files from user input, and somehow involves a giant magnet, 
 - provide input at the prompts
               
 - find your generated README.md file in ./output/README.md"
+
+[Walkthrough Video](https://www.youtube.com/watch?v=8iKR4SmpUPw)
+
 ## <a name="Credits"></a>Credits
 Thank you to 
       
