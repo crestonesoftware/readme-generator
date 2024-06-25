@@ -2,10 +2,10 @@
 const fs = require("fs");
 
 // DEPENDENCIES
-const gm = require("./utils/generateMarkdown.js");
+const gm = require("./lib/generateMarkdown.js");
 const inquirer = require("inquirer");
-const questions = require("./assets/js/inquirer-questions.js");
-const constants = require("./assets/js/constants.js");
+const questions = require("./lib/inquirer-questions.js");
+const constants = require("./lib/constants.js");
 
 // DATA
 
@@ -86,7 +86,7 @@ function renderBodyTextForREADME(textToAdd) {
 
 //  return githubProfileName as a link
 function renderGitHubLink(githubProfileName) {
-  return `Find this and other projects on GitHub: <a href="https://github.com/users/${githubProfileName}">${githubProfileName}</a>`;
+  return `Find this and other projects on GitHub: <a href="https://github.com/${githubProfileName}">${githubProfileName}</a>`;
 }
 
 //  return email address as a mailto link
