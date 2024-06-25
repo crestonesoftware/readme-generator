@@ -21,7 +21,7 @@ function generateMarkdown(data) {
 // Sections
 
 module.exports = {
-  composeLicenseSectionBody(data) {
+  renderLicenseSectionBody(data) {
   return `This project is licensed under the ${data.license} license.`;
 }
 }
