@@ -101,7 +101,7 @@ function renderInstallation(installationInstructions) {  return renderSection(co
 function renderUsage(usageInstructions) {         return renderSection(constants.SECTION_HEADINGS.USAGE,usageInstructions); }
 function renderTestInstructions(testInstructions) {return renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,testInstructions);  }
 function renderQuestions(githubProfileName, emailAddress) {     return renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(githubProfileName) +  renderEmailLink(emailAddress)); }
-function renderCredits(credits) { return renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,credits); }
+function renderCredits(credits) { return renderSection(constants.SECTION_HEADINGS.CREDITS,credits); }
 function renderLicense(answers) { return renderSection(constants.SECTION_HEADINGS.LICENSE,gm.renderLicenseSectionBody(answers)); }
 
 function renderBadgeLink(licenseDisplayText) {

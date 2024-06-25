@@ -40,9 +40,11 @@ module.exports = {
     
     // Given the user's chosen displayText value, return the correspinding badge link
     // for the README file
-    getBadgeLinkFromDisplayText(displayText) {
+    getBadgeLinkFromDisplayText(pDisplayText) {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
         for (const [key, value] of Object.entries(this.LICENSES)) {
-            if(value.DisplayText === displayText);
+            console.log(value.DisplayText, pDisplayText);
+            if(value.DisplayText === pDisplayText)
                 return value.Badge + '\n';
         }
         
@@ -56,7 +58,7 @@ module.exports = {
         USAGE: "Usage",
         TEST_INSTRUCTIONS: "Testing",
         QUESTIONS: "Questions",
-        CONTRIBUTIONS: "Contributions",
+        CREDITS: "Credits",
         LICENSE: "License"
     },
     
