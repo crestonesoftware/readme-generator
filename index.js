@@ -102,6 +102,9 @@ function renderDescription(answers) {   return renderSection(constants.SECTION_H
 function renderInstallation(answers) {  return renderSection(constants.SECTION_HEADINGS.INSTALLATION,answers.installationInstructions); }
 function renderUsage(answers) {         return renderSection(constants.SECTION_HEADINGS.USAGE,answers.usageInstructions); }
 function renderTestInstructions(answers) {return renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions);  }
+function renderQuestions(answers) {     return renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(answers.githubProfileName) +  renderEmailLink(answers.emailAddress)); }
+function renderContributions(answers) { return renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions); }
+function renderLicense(answers) { return renderSection(constants.SECTION_HEADINGS.LICENSE,gm.renderLicenseSectionBody(answers)); }
 
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
@@ -114,14 +117,13 @@ async function promptUserForProjectDetails() {
         contributions
     } = answers;
     addToREADMEArray(renderTitleForREADME(answers.projectTitle));
-    
     addToREADMEArray(renderDescription(answers));
     addToREADMEArray(renderInstallation(answers));
     addToREADMEArray(renderUsage(answers));
     addToREADMEArray(renderTestInstructions(answers));
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(githubProfileName) +  renderEmailLink(emailAddress)));
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions));
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.LICENSE,gm.renderLicenseSectionBody(answers)));
+    addToREADMEArray(renderQuestions(answers));
+    addToREADMEArray(renderContributions(answers));
+    addToREADMEArray(renderLicense(answers));
     
     // although the TOC appears in the README before sections, we have to generate it here,
     // after the section headings have been added
