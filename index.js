@@ -96,7 +96,12 @@ function addToREADMEArray(stringToAdd) {
     readmeContentsArray.push(stringToAdd);
 }
 
-
+///////////////////////////////////////////
+// RENDER SECTIONS
+function renderDescription(answers) {   return renderSection(constants.SECTION_HEADINGS.DESC,answers.projectDescription);   }
+function renderInstallation(answers) {  return renderSection(constants.SECTION_HEADINGS.INSTALLATION,answers.installationInstructions); }
+function renderUsage(answers) {         return renderSection(constants.SECTION_HEADINGS.USAGE,answers.usageInstructions); }
+function renderTestInstructions(answers) {return renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions);  }
 
 // prompts user to enter information about the project
 // awaits the user's responses before completing execution and returns a promise
@@ -110,10 +115,10 @@ async function promptUserForProjectDetails() {
     } = answers;
     addToREADMEArray(renderTitleForREADME(answers.projectTitle));
     
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.DESC,answers.projectDescription));
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.INSTALLATION,answers.installationInstructions));
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.USAGE,answers.usageInstructions));
-    addToREADMEArray(renderSection(constants.SECTION_HEADINGS.TEST_INSTRUCTIONS,answers.testInstructions));
+    addToREADMEArray(renderDescription(answers));
+    addToREADMEArray(renderInstallation(answers));
+    addToREADMEArray(renderUsage(answers));
+    addToREADMEArray(renderTestInstructions(answers));
     addToREADMEArray(renderSection(constants.SECTION_HEADINGS.QUESTIONS,renderGitHubLink(githubProfileName) +  renderEmailLink(emailAddress)));
     addToREADMEArray(renderSection(constants.SECTION_HEADINGS.CONTRIBUTIONS,answers.contributions));
     addToREADMEArray(renderSection(constants.SECTION_HEADINGS.LICENSE,gm.renderLicenseSectionBody(answers)));
