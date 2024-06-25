@@ -1,6 +1,9 @@
 // DEPENDENCIES
 const constants = require('./constants');
+
 // DATA
+// Questions have default answers for convenience during development
+
 module.exports = [
     {
         type: "input",

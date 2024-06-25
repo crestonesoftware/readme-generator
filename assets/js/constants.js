@@ -1,7 +1,8 @@
 module.exports = {
+
+    // Enumerate License details
     LICENSES: {
         APACHE: {
-            Name: "APACHE",
             DisplayText: "Apache 2.0",
             Badge: "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
         },
@@ -27,6 +28,7 @@ module.exports = {
         }
         
     },
+    // get the display text to use as the choices array by Inquirer
     getLicensesAsArray() {
         const licensesAsArray = [];
         for (const [key, value] of Object.entries(this.LICENSES)) {
@@ -35,14 +37,18 @@ module.exports = {
         return licensesAsArray;
         
     },
+    
+    // Given the user's chosen displayText value, return the correspinding badge link
+    // for the README file
     getBadgeLinkFromDisplayText(displayText) {
-        let badgeLink = "foo";
         for (const [key, value] of Object.entries(this.LICENSES)) {
             if(value.DisplayText === displayText);
-                return value.Badge;
+                return value.Badge + '\n';
         }
         
     },
+
+    // Enumerate section headings to avoid spelling mistakes
     SECTION_HEADINGS : {
         TOC: "Table of Contents",
         DESC: "Description",
@@ -52,5 +58,10 @@ module.exports = {
         QUESTIONS: "Questions",
         CONTRIBUTIONS: "Contributions",
         LICENSE: "License"
+    },
+    
+    TEXT_STYLES: {
+        TITLE: "# ",
+        SECTION_HEADING: "## ",
     }
 }

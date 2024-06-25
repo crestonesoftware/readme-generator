@@ -17,4 +17,11 @@ function generateMarkdown(data) {
 `;
 }
 
-module.exports = generateMarkdown;
+//////////////////////////////
+// Sections
+
+module.exports = {
+  renderLicenseSectionBody(data) {
+  return `This project is licensed under the ${data.license} license.`;
+}
+}
