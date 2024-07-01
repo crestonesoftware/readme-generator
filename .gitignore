@@ -1,6 +1,3 @@
-#output (directory and the generated README files)
-output/
-
 # sandbox files
 scratch.HTML
 scratch.js
