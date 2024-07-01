@@ -1,5 +1,5 @@
 # ACME Readme Generator
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## <a name="Description"></a>Description
 Generates README.md files from user input, and somehow involves a giant magnet, a catapult, and a bird running on the roads of the American southwest.
 ## <a name="Table of Contents"></a>Table of Contents
@@ -43,4 +43,4 @@ Find this and other projects on GitHub: <a href="https://github.com/crestonesoft
 
 Got questions? Contact me: <a href="mailto:elliott.davis@crestonetech.com">elliott.davis@crestonetech.com</a>
 ## <a name="License"></a>License
-This project is licensed under the Apache 2.0 license. For license details, click on the license badge below the title of this file.
+This project is licensed under the GNU GPL v3 license. For license details, click on the license badge below the title of this file.
