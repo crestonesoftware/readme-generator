@@ -31,6 +31,8 @@ Generates README.md files from user input, and somehow involves a giant magnet, 
 
 [Walkthrough Video](https://www.youtube.com/watch?v=8iKR4SmpUPw)
 
+[Demo video showing working TOC](https://youtu.be/Ms1QukHzGpw)
+
 ## <a name="Credits"></a>Credits
 Thank you to 
       
